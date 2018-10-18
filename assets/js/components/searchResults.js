@@ -12,7 +12,7 @@ export default class SearchResults extends React.Component {
 		let results = '',
 			resultsClass = '';
 
-		if ( this.props.loading ) {
+		if ( ! this.props.results.length && this.props.loading ) {
 
 			results      = <p>{ wds_react_post_search.loading_text }</p>;
 			resultsClass = ' loading performed-action';
