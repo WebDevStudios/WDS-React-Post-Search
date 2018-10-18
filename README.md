@@ -1,4 +1,4 @@
-# WDS-React-Post-Search
+# WDS React Post Search
 ## Power up the basic WordPress search with React
 
 This plugin taps into the WP REST API and uses React to power a real-time search of posts.
