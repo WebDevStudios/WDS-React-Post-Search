@@ -9,7 +9,7 @@ export default class SearchResults extends React.Component {
 
 	render() {
 
-		let results = '',
+		let results      = '',
 			resultsClass = '';
 
 		if ( ! this.props.results.length && this.props.loading ) {
