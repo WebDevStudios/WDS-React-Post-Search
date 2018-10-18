@@ -1,0 +1,28 @@
+{
+    "name": "wds-react-post-search",
+    "version": "1.0.0",
+    "description": "Power up the basic WordPress search field with React.",
+    "main": "assets/js/public.js",
+    "dependencies": {
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "react": "^16.5.2",
+        "react-dom": "^16.5.2",
+        "webpack": "^4.21.0"
+    },
+    "devDependencies": {
+        "webpack-cli": "^3.1.2"
+    },
+    "scripts": {
+        "build": "webpack",
+        "watch": "webpack --watch",
+        "test": "echo \"No test specified\" && exit 1"
+    },
+    "keywords": [
+        "plugin"
+    ],
+    "author": "WebDevStudios",
+    "license": "GPL-3.0"
+}
