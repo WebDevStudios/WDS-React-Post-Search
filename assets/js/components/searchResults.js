@@ -40,6 +40,10 @@ export default class SearchResults extends React.Component {
 
 		}
 
+		if ( ! results ) {
+			return null;
+		}
+
 		return (
 			<div className={ `search-results-container${ resultsClass }` }>
 				{ results }
