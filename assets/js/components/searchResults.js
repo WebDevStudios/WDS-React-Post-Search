@@ -17,9 +17,9 @@ export default class SearchResults extends React.Component {
 			return null;
 		}
 
+		// If we have results, OR we have results, but we're still typing. We don't want to take the results away to load more.
 		if ( 0 < this.props.results.length || 0 < this.props.results.length && this.props.loading ) {
 
-			// If we have results, OR we have results, but we're still typing. We don't want to take the results away to load more.
 			const queryResults = this.props.results.map( result => {
 				return(
 					<SearchResult key={ result.id } result={ result } />
@@ -27,7 +27,7 @@ export default class SearchResults extends React.Component {
 			} );
 
 			results      = <ul className="search-results-list">{ queryResults }</ul>;
-			resultsClass = ' has-results performed-action';
+			resultsClass = this.props.loading ? ' has-results loading-more performed-action' : ' has-results performed-action';
 
 		} else if ( this.props.loading ) {
 

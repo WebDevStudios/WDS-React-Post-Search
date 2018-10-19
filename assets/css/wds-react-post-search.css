@@ -17,6 +17,13 @@
 	opacity: 1;
 }
 
+.search-results-container.loading-more .search-results-item:first-of-type a {
+	background-image: url(../images/loader.svg);
+	background-position: calc(100% - 10px) center;
+	background-repeat: no-repeat;
+	background-size: 20px;
+}
+
 .search-results-list {
 	background-color: #fff;
 	border: 1px solid #ccc;
