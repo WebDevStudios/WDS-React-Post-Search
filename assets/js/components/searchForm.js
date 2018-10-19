@@ -18,17 +18,22 @@ export default class SearchForm extends React.Component {
 	}
 
 	getResults( event ) {
-		if ( this.state.loading ) {
-			return;
-		}
 
 		const search = event.target.value;
 
 		if ( ! search ) {
 			this.setState( {
+				results: [],
+				loading: false,
+				searched: false,
+				lengthError: false,
 				empty: true,
 			} );
-		} else if ( search && 2 < search.length ) {
+
+			return;
+		}
+
+		if ( search && 2 < search.length ) {
 			this.setState( {
 				loading: true,
 				searched: true,

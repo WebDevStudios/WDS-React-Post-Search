@@ -12,14 +12,16 @@ export default class SearchResults extends React.Component {
 		let results      = '',
 			resultsClass = '';
 
-		if ( ! this.props.results.length && this.props.loading ) {
+		if ( this.props.empty ) {
+			return null;
+		} else if ( this.props.loading ) {
 
 			results      = <p>{ wds_react_post_search.loading_text }</p>;
 			resultsClass = ' loading performed-action';
 
 		} else if ( ! this.props.empty && this.props.lengthError ) {
 
-			results      = <p>{wds_react_post_search.length_error}</p>;
+			results      = <p>{ wds_react_post_search.length_error }</p>;
 			resultsClass = ' character-length performed-action';
 
 		} else if ( 0 < this.props.results.length ) {
