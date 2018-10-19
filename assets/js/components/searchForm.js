@@ -33,7 +33,7 @@ export default class SearchForm extends React.Component {
 			return;
 		}
 
-		if ( search && 2 < search.length ) {
+		if ( search && wds_react_post_search.minimum_character_count < search.length ) {
 			this.setState( {
 				loading: true,
 				searched: true,
