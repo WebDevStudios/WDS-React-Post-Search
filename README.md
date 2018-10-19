@@ -51,8 +51,22 @@ function _s_filter_search_minimum_character_count() {
 add_filter( 'wds_react_post_search_minimum_character_count', '_s_filter_search_minimum_character_count' );
 ```
 
+### Does your search form use a different class? No problem!
+By default, the plugin will target `search-form` as is set in the `localize_script` call:
+```
+'search_form_class' => apply_filters( 'wds_react_post_search_search_form_class', esc_attr( 'search-form' ) )
+```
+
+However, this can also be filtered if your search form uses another class or you want to target a specific instance of a form on a page:
+```
+function _s_filter_search_search_form_class() {
+	return esc_attr( 'some-other-class' );
+}
+add_filter( 'wds_react_post_search_search_form_class', '_s_filter_search_search_form_class' );
+```
+
 ### How does it work?
 
-This taps into the `search-form` class to display results when you begin typing in any search input. If your search form is using a different class name, you will need to update `/assets/js/public.js` with the necessary class.
+This taps into the `search-form` class (or whatever class you filter to above) to display results when you begin typing in any search input matching that same class.
 
 ![](https://dl.dropbox.com/s/8ahiplrbr8cghfh/react-post-search-clearing-fixed.gif?dl=0)
