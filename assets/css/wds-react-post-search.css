@@ -19,9 +19,9 @@
 
 .search-results-container.loading-more .search-results-item:first-of-type a {
 	background-image: url(../images/loader.svg);
-	background-position: calc(100% - 10px) center;
+	background-position: calc(100% - 10px) 10px;
 	background-repeat: no-repeat;
-	background-size: 20px;
+	background-size: 16px;
 }
 
 .search-results-list {
@@ -36,7 +36,7 @@
 .search-results-item a {
 	background-color: #fff;
 	display: block;
-	padding: 10px;
+	padding: 10px 30px 10px 10px;
 	transition: background-color 0.2s ease-in-out;
 }
 
