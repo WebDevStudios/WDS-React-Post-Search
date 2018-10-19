@@ -249,9 +249,9 @@ final class WDS_React_Post_Search {
 
 		wp_localize_script( 'wds-react-post-search', 'wds_react_post_search', array(
 			'rest_search_posts' => rest_url( 'wp/v2/posts?' . $this->get_post_types_to_search() . 'search=%s' ),
-			'loading_text'      => __( 'Loading results...', 'wds-react-post-search' ),
-			'no_results_text'   => __( 'No results found.', 'wds-react-post-search' ),
-			'length_error'      => __( 'Please enter at least 3 characters.', 'wds-react-post-search' ),
+			'loading_text'      => apply_filters( 'wds_react_post_search_loading_text', esc_html( 'Loading results...', 'wds-react-post-search' ) ),
+			'no_results_text'   => apply_filters( 'wds_react_post_search_no_results_text', esc_html( 'No results found.', 'wds-react-post-search' ) ),
+			'length_error'      => apply_filters( 'wds_react_post_search_length_error_text', esc_html( 'Please enter at least 3 characters.', 'wds-react-post-search' ) ),
 		) );
 	}
 
