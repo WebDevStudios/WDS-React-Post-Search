@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchForm from './components/searchForm';
 
 const searchFormElement = <SearchForm />,
-	searchFields = document.getElementsByClassName( 'search-form' );
+	searchFields = document.getElementsByClassName( wds_react_post_search.search_form_class );
 
 if ( searchFields.length ) {
 
