@@ -21,4 +21,4 @@ add_filter( 'wds_react_post_search_filter_post_types', '_s_filter_post_types_to_
 
 This taps into the `search-form` class to display results when you begin typing in any search input. If your search form is using a different class name, you will need to update `/assets/js/public.js` with the necessary class.
 
-![](https://dl.dropbox.com/s/7f37z9lpckb5pku/react-post-search-updated-again.gif?dl=0)
+![](https://dl.dropbox.com/s/8ahiplrbr8cghfh/react-post-search-clearing-fixed.gif?dl=0)
