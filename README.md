@@ -41,6 +41,16 @@ function _s_filter_search_length_error_text() {
 add_filter( 'wds_react_post_search_length_error_text', '_s_filter_search_length_error_text' );
 ```
 
+### Want to change the minimum character limit?
+Easy! There's a filter for that, too. If you want the search to start working as soon as you start typing, just set your value to `0` or `1`. Otherwise, you can set this to whatever number you wish. Remember, this is character count and not letter count – spaces count!
+
+```
+function _s_filter_search_minimum_character_count() {
+	return 0;
+}
+add_filter( 'wds_react_post_search_minimum_character_count', '_s_filter_search_minimum_character_count' );
+```
+
 ### How does it work?
 
 This taps into the `search-form` class to display results when you begin typing in any search input. If your search form is using a different class name, you will need to update `/assets/js/public.js` with the necessary class.
