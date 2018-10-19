@@ -70,7 +70,7 @@ export default class SearchForm extends React.Component {
 	render() {
 		return (
 			<div className="search-form-input">
-				<input className="search-input" type="text" onKeyUp={ this.getResults } />
+				<input className="search-input" type="text" onChange={ this.getResults } />
 				<SearchResults searched={ this.state.searched } loading={ this.state.loading } results={ this.state.results } lengthError={ this.state.lengthError } empty={ this.state.empty } />
 			</div>
 		)
