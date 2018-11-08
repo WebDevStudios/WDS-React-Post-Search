@@ -311,13 +311,13 @@ final class WDS_React_Post_Search {
 	 * @param array $post_types Array of post types to be used.
 	 * @author Corey Collins
 	 */
-	public function post_types_to_search( $post_types = array() ) {
+	public function post_types_to_search() {
 
-		$default_post_types = array(
+		$post_types = array(
 			'post',
 		);
 
-		$all_post_types = array_merge( $default_post_types, apply_filters( 'wds_react_post_search_filter_post_types', $post_types ) );
+		$all_post_types = apply_filters( 'wds_react_post_search_filter_post_types', $post_types );
 
 		return $all_post_types;
 	}
