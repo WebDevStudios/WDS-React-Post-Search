@@ -1,0 +1,8 @@
+{
+	"name": "webdevstudios/react-post-search",
+	"description": "Power up the basic WordPress search with React.",
+	"type": "wordpress-plugin",
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}
