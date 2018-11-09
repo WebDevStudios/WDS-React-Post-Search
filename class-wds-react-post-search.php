@@ -359,6 +359,22 @@ final class WDS_React_Post_Search {
 	}
 
 	/**
+	 * Get search post types.
+	 *
+	 * @param  array $request HTTP request variables.
+	 * @return mixed
+	 */
+	public function get_valid_search_post_types( $request ) {
+		if ( is_array( $request['type'] ) && ! empty( $request['type'] ) ) {
+			return array_map( 'sanitize_text_field', $request['type'] );
+		} elseif ( $request['type'] ) {
+			return sanitize_text_field( $request['type'] );
+		} else {
+			return $this->post_types_to_search();
+		}
+	}
+
+	/**
 	 * Search posts.
 	 *
 	 * @param array $request HTTP request variables.
@@ -371,15 +387,9 @@ final class WDS_React_Post_Search {
 		if ( isset( $request['s'] ) ) :
 			$filter = [
 				'posts_per_page' => -1,
-				'post_type'      => $this->post_types_to_search(),
+				'post_type'      => $this->get_valid_search_post_types( $request ),
 				's'              => sanitize_text_field( $request['s'] ),
 			];
-
-			if ( is_array( $request['type'] ) ) {
-				$filter['post_type'] = array_map( 'sanitize_text_field', $request['type'] );
-			} else {
-				$filter['post_type'] = sanitize_text_field( $request['type'] );
-			}
 
 			// Get posts.
 			$posts = get_posts( $filter );
