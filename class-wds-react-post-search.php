@@ -371,7 +371,7 @@ final class WDS_React_Post_Search {
 		if ( isset( $request['s'] ) ) :
 			$filter = [
 				'posts_per_page' => -1,
-				'post_type'      => 'any',
+				'post_type'      => $this->post_types_to_search(),
 				's'              => sanitize_text_field( $request['s'] ),
 			];
 
