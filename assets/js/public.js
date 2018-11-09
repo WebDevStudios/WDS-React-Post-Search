@@ -8,8 +8,12 @@ if ( searchFields.length ) {
 
 	for ( let i = 0; i < searchFields.length; i++ ) {
 		const searchForm = searchFields[ i ];
-		const postType   = searchForm.querySelector("input[name=post_type]").value;
+		let postType     = '';
 		
+		if( searchForm.querySelector('input[name=post_type]') ) {
+			postType = searchForm.querySelector('input[name=post_type]').value;
+		}
+
 		ReactDOM.render(
 			<SearchForm postType={ postType } />,
 			searchFields[ i ]

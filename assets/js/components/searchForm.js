@@ -92,8 +92,6 @@ export default class SearchForm extends React.Component {
 			className = 'search-form-input';
 		}
 
-		console.log(className);
-
 		return className;
 	}
 	
