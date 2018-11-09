@@ -314,7 +314,7 @@ final class WDS_React_Post_Search {
 	public function post_types_to_search() {
 
 		$post_types = array(
-			'post',
+			'any',
 		);
 
 		$all_post_types = apply_filters( 'wds_react_post_search_filter_post_types', $post_types );
