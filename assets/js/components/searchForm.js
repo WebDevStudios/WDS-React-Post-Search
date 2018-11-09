@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'query-string';
 import SearchResults from './searchResults';
 
 export default class SearchForm extends React.Component {
@@ -6,7 +7,8 @@ export default class SearchForm extends React.Component {
 	constructor( props ) {
 		super( props );
 
-		this.getResults = this.getResults.bind( this );
+		this.getResults   = this.getResults.bind( this );
+		this.getFormClass = this.getFormClass.bind( this );
 
 		this.state = {
 			results: [],
@@ -41,8 +43,20 @@ export default class SearchForm extends React.Component {
 				empty: false,
 			} );
 
-			let url = wds_react_post_search.rest_search_posts.replace( '%s', search );
+			const postType = this.props.postType;
 
+			let url   = wds_react_post_search.rest_search_posts.replace( '%s', search );
+			let query = {
+				s: search
+			};
+
+			if ( postType ) {
+				query.type = postType;
+			};
+
+			const queryString = qs.stringify( query );
+			url = `${ url }?${ queryString }`;
+			
 			let	json = fetch( url )
 				.then(
 					response => {
@@ -67,9 +81,23 @@ export default class SearchForm extends React.Component {
 		}
 	}
 
+	getFormClass() {
+		let className = 'search-form-input';
+
+		if ( this.state.results.length > 0 || this.state.loading || this.state.lengthError || this.state.searched ) {
+			className += ' search-form-performing-action';
+		}
+
+		if ( this.state.empty ) {
+			className = 'search-form-input';
+		}
+
+		return className;
+	}
+	
 	render() {
 		return (
-			<div className="search-form-input">
+			<div className={ `${ this.getFormClass() }` }>
 				<input className="search-input" type="text" onChange={ this.getResults } />
 				<SearchResults searched={ this.state.searched } loading={ this.state.loading } results={ this.state.results } lengthError={ this.state.lengthError } empty={ this.state.empty } />
 			</div>

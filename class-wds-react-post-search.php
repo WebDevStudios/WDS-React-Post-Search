@@ -231,6 +231,7 @@ final class WDS_React_Post_Search {
 	 */
 	public function hooks() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 1 );
+		add_action( 'rest_api_init', array( $this, 'rest_api_init' ), 10, 2 );
 		add_action( 'rest_post_query', array( $this, 'add_post_types_to_query' ), 10, 2 );
 	}
 
@@ -248,7 +249,7 @@ final class WDS_React_Post_Search {
 		wp_enqueue_style( 'wds-react-post-search-styles' );
 
 		wp_localize_script( 'wds-react-post-search', 'wds_react_post_search', array(
-			'rest_search_posts'       => rest_url( 'wp/v2/posts?' . $this->get_post_types_to_search() . 'search=%s' ),
+			'rest_search_posts'       => rest_url( 'wds-react-post-search/v1/search' ),
 			'loading_text'            => apply_filters( 'wds_react_post_search_loading_text', esc_html__( 'Loading results...', 'wds-react-post-search' ) ),
 			'no_results_text'         => apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ),
 			'length_error'            => apply_filters( 'wds_react_post_search_length_error_text', esc_html__( 'Please enter at least 3 characters.', 'wds-react-post-search' ) ),
@@ -308,41 +309,105 @@ final class WDS_React_Post_Search {
 	 * }
 	 * add_filter( 'wds_react_post_search_filter_post_types', '_s_filter_post_types_to_query' );
 	 *
-	 * @param array $post_types Array of post types to be used.
 	 * @author Corey Collins
 	 */
-	public function post_types_to_search( $post_types = array() ) {
+	public function post_types_to_search() {
 
-		$default_post_types = array(
-			'post',
+		$post_types = array(
+			'any',
 		);
 
-		$all_post_types = array_merge( $default_post_types, apply_filters( 'wds_react_post_search_filter_post_types', $post_types ) );
+		$all_post_types = apply_filters( 'wds_react_post_search_filter_post_types', $post_types );
 
 		return $all_post_types;
 	}
 
 	/**
-	 * Get the string of post types to search for our REST API query.
+	 * Register REST API search results route.
 	 *
-	 * @return void Bail if we don't even have filtered post types – we'll just search posts.
-	 * @author Corey Collins
+	 * @return void
 	 */
-	public function get_post_types_to_search() {
+	public function rest_api_init() {
+		register_rest_route('wds-react-post-search/v1', '/search', [
+			'methods'  => WP_REST_Server::READABLE,
+			'callback' => array( $this, 'search_posts' ),
+			'args'     => $this->get_search_args(),
+		]);
+	}
 
-		$post_types = $this->post_types_to_search();
+	/**
+	 * Define the arguments our endpoint receives.
+	 */
+	public function get_search_args() {
+		$args = [];
 
-		if ( ! $post_types ) {
-			return;
+		$args['s'] = [
+			'description' => esc_html__( 'The search term.', 'wds-react-post-search' ),
+			'type'        => 'string',
+		];
+
+		$args['type'] = [
+			'description' => esc_html__( 'Post Types.', 'wds-react-post-search' ),
+			'type'        => 'array',
+			'default'     => [],
+			'items'       => [
+				'type' => 'string',
+			],
+		];
+
+		return $args;
+	}
+
+	/**
+	 * Get search post types.
+	 *
+	 * @param  array $request HTTP request variables.
+	 * @return mixed
+	 */
+	public function get_valid_search_post_types( $request ) {
+		if ( is_array( $request['type'] ) && ! empty( $request['type'] ) ) {
+			return array_map( 'sanitize_text_field', $request['type'] );
+		} elseif ( $request['type'] ) {
+			return sanitize_text_field( $request['type'] );
+		} else {
+			return $this->post_types_to_search();
 		}
+	}
 
-		$post_types_string = '';
+	/**
+	 * Search posts.
+	 *
+	 * @param array $request HTTP request variables.
+	 * @return array  Search results or error.
+	 */
+	public function search_posts( $request ) {
+		$posts   = [];
+		$results = [];
 
-		foreach ( $post_types as $post_type ) {
-			$post_types_string .= 'type[]=' . esc_attr( $post_type ) . '&';
-		}
+		if ( isset( $request['s'] ) ) :
+			$filter = [
+				'posts_per_page' => -1,
+				'post_type'      => $this->get_valid_search_post_types( $request ),
+				's'              => sanitize_text_field( $request['s'] ),
+			];
 
-		return $post_types_string;
+			// Get posts.
+			$posts = get_posts( $filter );
+
+			// Return title and link.
+			foreach ( $posts as $post ) :
+				$results[] = [
+					'title' => $post->post_title,
+					'link'  => get_permalink( $post->ID ),
+				];
+			endforeach;
+		endif;
+
+		if ( empty( $results ) ) :
+			return new WP_Error( 'wds-react-post-search-results', apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ) );
+		endif;
+
+		return rest_ensure_response( $results );
 	}
 }
 
