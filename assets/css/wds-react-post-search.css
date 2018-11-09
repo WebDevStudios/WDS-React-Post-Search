@@ -1,6 +1,9 @@
 .search-form-input {
-	margin-bottom: 50px;
 	position: relative;
+}
+
+.search-form-performing-action {
+	margin-bottom: 50px;
 }
 
 .search-form-input .search-input,

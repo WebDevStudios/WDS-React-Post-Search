@@ -249,7 +249,7 @@ final class WDS_React_Post_Search {
 		wp_enqueue_style( 'wds-react-post-search-styles' );
 
 		wp_localize_script( 'wds-react-post-search', 'wds_react_post_search', array(
-			'rest_search_posts'       => rest_url( 'wds-react-post-search/v1/search?' . $this->get_post_types_to_search() . 's=%s' ),
+			'rest_search_posts'       => rest_url( 'wds-react-post-search/v1/search' ),
 			'loading_text'            => apply_filters( 'wds_react_post_search_loading_text', esc_html__( 'Loading results...', 'wds-react-post-search' ) ),
 			'no_results_text'         => apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ),
 			'length_error'            => apply_filters( 'wds_react_post_search_length_error_text', esc_html__( 'Please enter at least 3 characters.', 'wds-react-post-search' ) ),
@@ -323,29 +323,6 @@ final class WDS_React_Post_Search {
 	}
 
 	/**
-	 * Get the string of post types to search for our REST API query.
-	 *
-	 * @return void Bail if we don't even have filtered post types – we'll just search posts.
-	 * @author Corey Collins
-	 */
-	public function get_post_types_to_search() {
-
-		$post_types = $this->post_types_to_search();
-
-		if ( ! $post_types ) {
-			return;
-		}
-
-		$post_types_string = '';
-
-		foreach ( $post_types as $post_type ) {
-			$post_types_string .= 'type[]=' . esc_attr( $post_type ) . '&';
-		}
-
-		return $post_types_string;
-	}
-
-	/**
 	 * Register REST API search results route.
 	 *
 	 * @return void
@@ -410,7 +387,7 @@ final class WDS_React_Post_Search {
 			// Return title and link.
 			foreach ( $posts as $post ) :
 				$results[] = [
-					'title' => get_the_title( $post->ID ),
+					'title' => $post->post_title,
 					'link'  => get_permalink( $post->ID ),
 				];
 			endforeach;
