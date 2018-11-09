@@ -231,6 +231,7 @@ final class WDS_React_Post_Search {
 	 */
 	public function hooks() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 1 );
+		add_action( 'rest_api_init', array( $this, 'rest_api_init' ), 10, 2 );
 		add_action( 'rest_post_query', array( $this, 'add_post_types_to_query' ), 10, 2 );
 	}
 
@@ -248,7 +249,7 @@ final class WDS_React_Post_Search {
 		wp_enqueue_style( 'wds-react-post-search-styles' );
 
 		wp_localize_script( 'wds-react-post-search', 'wds_react_post_search', array(
-			'rest_search_posts'       => rest_url( 'wp/v2/posts?' . $this->get_post_types_to_search() . 'search=%s' ),
+			'rest_search_posts'       => rest_url( 'wds-react-post-search/v1/search?' . $this->get_post_types_to_search() . 's=%s' ),
 			'loading_text'            => apply_filters( 'wds_react_post_search_loading_text', esc_html__( 'Loading results...', 'wds-react-post-search' ) ),
 			'no_results_text'         => apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ),
 			'length_error'            => apply_filters( 'wds_react_post_search_length_error_text', esc_html__( 'Please enter at least 3 characters.', 'wds-react-post-search' ) ),
@@ -342,6 +343,84 @@ final class WDS_React_Post_Search {
 		}
 
 		return $post_types_string;
+	}
+
+	/**
+	 * Register REST API search results route.
+	 *
+	 * @return void
+	 */
+	public function rest_api_init() {
+		register_rest_route('wds-react-post-search/v1', '/search', [
+			'methods'  => WP_REST_Server::READABLE,
+			'callback' => array( $this, 'search_posts' ),
+			'args'     => $this->get_search_args(),
+		]);
+	}
+
+	/**
+	 * Define the arguments our endpoint receives.
+	 */
+	public function get_search_args() {
+		$args = [];
+
+		$args['s'] = [
+			'description' => esc_html__( 'The search term.', 'wds-react-post-search' ),
+			'type'        => 'string',
+		];
+
+		$args['type'] = [
+			'description' => esc_html__( 'Post Types.', 'wds-react-post-search' ),
+			'type'        => 'array',
+			'default'     => [],
+			'items'       => [
+				'type' => 'string',
+			],
+		];
+
+		return $args;
+	}
+
+	/**
+	 * Search posts.
+	 *
+	 * @param array $request HTTP request variables.
+	 * @return array  Search results or error.
+	 */
+	public function search_posts( $request ) {
+		$posts   = [];
+		$results = [];
+
+		if ( isset( $request['s'] ) ) :
+			$filter = [
+				'posts_per_page' => -1,
+				'post_type'      => 'any',
+				's'              => sanitize_text_field( $request['s'] ),
+			];
+
+			if ( is_array( $request['type'] ) ) {
+				$filter['post_type'] = array_map( 'sanitize_text_field', $request['type'] );
+			} else {
+				$filter['post_type'] = sanitize_text_field( $request['type'] );
+			}
+
+			// Get posts.
+			$posts = get_posts( $filter );
+
+			// Return title and link.
+			foreach ( $posts as $post ) :
+				$results[] = [
+					'title' => get_the_title( $post->ID ),
+					'link'  => get_permalink( $post->ID ),
+				];
+			endforeach;
+		endif;
+
+		if ( empty( $results ) ) :
+			return new WP_Error( 'wds-react-post-search-results', apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ) );
+		endif;
+
+		return rest_ensure_response( $results );
 	}
 }
 

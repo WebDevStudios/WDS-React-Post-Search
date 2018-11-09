@@ -9,7 +9,7 @@ export default class SearchResult extends React.Component {
 	render() {
 		return (
 			<li className="search-results-item">
-				<a href={ this.props.result.link }>{ this.props.result.title.rendered }</a>
+				<a href={ this.props.result.link }>{ this.props.result.title }</a>
 			</li>
 		)
 	}
