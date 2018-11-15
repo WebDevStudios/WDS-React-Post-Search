@@ -255,6 +255,7 @@ final class WDS_React_Post_Search {
 			'length_error'            => apply_filters( 'wds_react_post_search_length_error_text', esc_html__( 'Please enter at least 3 characters.', 'wds-react-post-search' ) ),
 			'minimum_character_count' => apply_filters( 'wds_react_post_search_minimum_character_count', intval( 3 ) ),
 			'search_form_class'       => apply_filters( 'wds_react_post_search_search_form_class', esc_attr( 'search-form' ) ),
+			'placeholder_text'        => apply_filters( 'wds_react_post_search_placeholder_text', esc_html__( 'Search', 'wds-react-post-search' ) ),
 		) );
 	}
 
