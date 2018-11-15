@@ -98,7 +98,7 @@ export default class SearchForm extends React.Component {
 	render() {
 		return (
 			<div className={ `${ this.getFormClass() }` }>
-				<input className="search-input" type="text" onChange={ this.getResults } />
+				<input className="search-input" type="text" onChange={ this.getResults } placeholder={ wds_react_post_search.placeholder_text } />
 				<SearchResults searched={ this.state.searched } loading={ this.state.loading } results={ this.state.results } lengthError={ this.state.lengthError } empty={ this.state.empty } />
 			</div>
 		)
