@@ -4,6 +4,7 @@
     "description": "Power up the basic WordPress search field with React.",
     "main": "assets/js/public.js",
     "dependencies": {
+        "@wordpress/html-entities": "^2.0.2",
         "babel-core": "^6.26.3",
         "babel-loader": "^7.1.4",
         "babel-preset-env": "^1.7.0",
