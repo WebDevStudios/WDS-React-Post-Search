@@ -390,6 +390,7 @@ final class WDS_React_Post_Search {
 				'posts_per_page' => -1,
 				'post_type'      => $this->get_valid_search_post_types( $request ),
 				's'              => sanitize_text_field( $request['s'] ),
+				'tax_query'      => apply_filters( 'wds_react_post_search_tax_query', array() ),
 			];
 
 			// Get posts.
