@@ -3,7 +3,7 @@
  * Plugin Name: WDS React Post Search
  * Description: Power up the basic WordPress search with React.
  * Plugin URI: https://www.webdevstudios.com
- * Version: 1.0.2
+ * Version: 1.0.3
  *
  * With help from:
  * https://www.ibenic.com/wordpress-react-search/
@@ -391,6 +391,8 @@ final class WDS_React_Post_Search {
 				'post_type'      => $this->get_valid_search_post_types( $request ),
 				's'              => sanitize_text_field( $request['s'] ),
 				'tax_query'      => apply_filters( 'wds_react_post_search_tax_query', array() ),
+				'order'          => apply_filters( 'wds_react_post_search_order', 'DESC' ),
+				'orderby'        => apply_filters( 'wds_react_post_search_orderby', 'date' ),
 			];
 
 			// Get posts.
