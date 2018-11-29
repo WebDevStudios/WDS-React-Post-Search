@@ -1,10 +1,11 @@
 {
     "name": "wds-react-post-search",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Power up the basic WordPress search field with React.",
     "main": "assets/js/public.js",
     "dependencies": {
         "@wordpress/html-entities": "^2.0.2",
+        "awesome-debounce-promise": "^1.0.0",
         "babel-core": "^6.26.3",
         "babel-loader": "^7.1.4",
         "babel-preset-env": "^1.7.0",
@@ -12,7 +13,8 @@
         "install": "^0.12.2",
         "npm": "^6.4.1",
         "query-string": "^6.2.0",
-        "react": "^16.5.2",
+        "react": "^16.6.3",
+        "react-debounce-input": "^3.2.0",
         "react-dom": "^16.5.2",
         "webpack": "^4.21.0"
     },
