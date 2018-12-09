@@ -249,7 +249,7 @@ final class WDS_React_Post_Search {
 		wp_enqueue_style( 'wds-react-post-search-styles' );
 
 		wp_localize_script( 'wds-react-post-search', 'wds_react_post_search', array(
-			'rest_search_posts'       => rest_url( 'wds-react-post-search/v1/search' ),
+			'rest_search_posts'       => rest_url( 'wp/v2/search' ),
 			'loading_text'            => apply_filters( 'wds_react_post_search_loading_text', esc_html__( 'Loading results...', 'wds-react-post-search' ) ),
 			'no_results_text'         => apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ),
 			'length_error'            => apply_filters( 'wds_react_post_search_length_error_text', esc_html__( 'Please enter at least 3 characters.', 'wds-react-post-search' ) ),
@@ -329,7 +329,7 @@ final class WDS_React_Post_Search {
 	 * @return void
 	 */
 	public function rest_api_init() {
-		register_rest_route('wds-react-post-search/v1', '/search', [
+		register_rest_route( 'wp/v2', '/search', [
 			'methods'  => WP_REST_Server::READABLE,
 			'callback' => array( $this, 'search_posts' ),
 			'args'     => $this->get_search_args(),
