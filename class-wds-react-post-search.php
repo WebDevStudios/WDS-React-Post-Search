@@ -407,10 +407,6 @@ final class WDS_React_Post_Search {
 			endforeach;
 		endif;
 
-		if ( empty( $results ) ) :
-			return new WP_Error( 'wds-react-post-search-results', apply_filters( 'wds_react_post_search_no_results_text', esc_html__( 'No results found.', 'wds-react-post-search' ) ) );
-		endif;
-
 		return rest_ensure_response( $results );
 	}
 }
