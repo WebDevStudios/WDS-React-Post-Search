@@ -1,3 +1,4 @@
+require('isomorphic-fetch');
 import React from 'react';
 import qs from 'query-string';
 import { DebounceInput } from 'react-debounce-input';
@@ -57,7 +58,7 @@ export default class SearchForm extends React.Component {
 
 			const queryString = qs.stringify( query );
 			url = `${ url }?${ queryString }`;
-			
+
 			let	json = fetch( url )
 				.then(
 					response => {
@@ -95,7 +96,7 @@ export default class SearchForm extends React.Component {
 
 		return className;
 	}
-	
+
 	render() {
 		return (
 			<div className={ `${ this.getFormClass() }` }>
