@@ -242,7 +242,7 @@ final class WDS_React_Post_Search {
 	 */
 	public function enqueue_scripts() {
 
-		wp_register_script( 'wds-react-post-search', $this->url . 'assets/js/public.min.js', array( 'jquery' ), self::VERSION, true );
+		wp_register_script( 'wds-react-post-search', $this->url . 'assets/js/public.js', array( 'jquery' ), self::VERSION, true );
 		wp_register_style( 'wds-react-post-search-styles', $this->url . 'assets/css/wds-react-post-search.css', array(), self::VERSION );
 
 		wp_enqueue_script( 'wds-react-post-search' );
