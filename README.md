@@ -62,19 +62,21 @@ add_filter( 'wds_react_post_search_minimum_character_count', '_s_filter_search_m
 
 ### Does your search form use a different class? No problem!
 By default, the plugin will target `search-form` as is set in the `localize_script` call:
-```
+
+```php
 'search_form_class' => apply_filters( 'wds_react_post_search_search_form_class', esc_attr( 'search-form' ) )
 ```
 
 However, this can also be filtered if your search form uses another class or you want to target a specific instance of a form on a page:
-```
+
+```php
 function _s_filter_search_search_form_class() {
 	return esc_attr( 'some-other-class' );
 }
 add_filter( 'wds_react_post_search_search_form_class', '_s_filter_search_search_form_class' );
 ```
 
-## Development
+## Local Development
 
 Clone this repo
 ```bash
