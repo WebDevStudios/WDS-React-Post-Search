@@ -1,34 +1,44 @@
 {
-    "name": "wds-react-post-search",
-    "version": "1.0.4",
-    "description": "Power up the basic WordPress search field with React.",
-    "main": "assets/js/public.js",
-    "dependencies": {
-        "@wordpress/html-entities": "^2.0.2",
-        "babel-core": "^6.26.3",
-        "babel-loader": "^7.1.4",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-react": "^6.24.1",
-        "install": "^0.12.2",
-        "isomorphic-fetch": "^2.2.1",
-        "npm": "^6.4.1",
-        "query-string": "^6.2.0",
-        "react": "^16.6.3",
-        "react-debounce-input": "^3.2.0",
-        "react-dom": "^16.5.2",
-        "webpack": "^4.21.0"
-    },
-    "devDependencies": {
-        "webpack-cli": "^3.1.2"
-    },
-    "scripts": {
-        "build": "webpack",
-        "watch": "webpack --watch",
-        "test": "echo \"No test specified\" && exit 1"
-    },
-    "keywords": [
-        "plugin"
-    ],
-    "author": "WebDevStudios",
-    "license": "GPL-3.0"
+  "name": "wds-react-post-search",
+  "author": "WebDevStudios",
+  "license": "GPL-3.0",
+  "version": "1.0.4",
+  "description": "Power up the basic WordPress search field with React.",
+  "keywords": [
+    "plugin"
+  ],
+  "main": "assets/js/public.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --open --hot --mode development",
+    "test": "echo \"No test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@wordpress/html-entities": "^2.5.0",
+    "babel-loader": "^8.0.6",
+    "isomorphic-fetch": "^2.2.1",
+    "query-string": "^6.8.2",
+    "react": "^16.8.6",
+    "react-debounce-input": "^3.2.0",
+    "react-dom": "^16.8.6",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ]
 }
