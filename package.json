@@ -2,7 +2,7 @@
   "name": "wds-react-post-search",
   "author": "WebDevStudios",
   "license": "GPL-3.0",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Power up the basic WordPress search field with React.",
   "keywords": [
     "plugin"

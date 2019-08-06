@@ -3,7 +3,7 @@
  * Plugin Name: WDS React Post Search
  * Description: Power up the basic WordPress search with React.
  * Plugin URI: https://www.webdevstudios.com
- * Version: 1.0.4
+ * Version: 1.0.6
  *
  * With help from:
  * https://www.ibenic.com/wordpress-react-search/
@@ -29,7 +29,7 @@ final class WDS_React_Post_Search {
 	 * @var    string
 	 * @since  0.0.0
 	 */
-	const VERSION = '1.0.2';
+	const VERSION = '1.0.6';
 
 	/**
 	 * URL of plugin directory.
